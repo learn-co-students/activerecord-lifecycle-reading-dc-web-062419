@@ -2,6 +2,8 @@ class Post < ActiveRecord::Base
 
   belongs_to :author
   validate :is_title_case 
+  before_create :make_title_case
+  before_validation :make_title_case
 
   private
 
@@ -10,6 +12,8 @@ class Post < ActiveRecord::Base
       errors.add(:title, "Title must be in title case")
     end
   end
+
+
 
   def make_title_case
     self.title = self.title.titlecase
